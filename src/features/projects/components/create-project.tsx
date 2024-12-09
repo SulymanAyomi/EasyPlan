@@ -57,7 +57,7 @@ export const CreateProject = () => {
               { form: finalValues },
               {
                 onSuccess: ({ data }) => {
-                  console.log(data, "projjjjjjjjjjjj");
+                  // console.log(data, "projjjjjjjjjjjj");
                   router.push(
                     `/workspaces/${data.workspaceId}/projects/create/${data.$id}`
                   );
@@ -142,7 +142,10 @@ export const CreateProject = () => {
                   </FormItem>
                 )}
               ></FormField>
-              <Button className="flex justify-center items-center absolute h-full right-0 top-0">
+              <Button
+                disabled={isPending || isCreateProjectPending}
+                className="flex justify-center items-center absolute h-full right-0 top-0"
+              >
                 {isPending || isCreateProjectPending ? (
                   <StopCircleIcon />
                 ) : (

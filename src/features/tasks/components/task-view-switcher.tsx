@@ -19,6 +19,7 @@ import { useCallback } from "react";
 import { useBulkUpdateTask } from "../api/use-bulk-update-task";
 import { json } from "stream/consumers";
 import { TaskStatus } from "../types";
+import { DataCalendar } from "./data-calender";
 
 export const TaskViewSwitcher = () => {
   const [{ status, assigneeId, projectId, dueDate }] = useTaskFilters();
@@ -87,7 +88,7 @@ export const TaskViewSwitcher = () => {
               />
             </TabsContent>
             <TabsContent value="calender" className="mt-0">
-              Data calender
+              <DataCalendar data={tasks?.documents ?? []} />
             </TabsContent>
           </>
         )}
