@@ -13,9 +13,9 @@ export const PageError = ({
     <div className="h-full flex flex-col gap-y-4 items-center justify-center">
       <AlertTriangle className="size-6 text-muted-foreground mb-2" />
       <p className="text-sm font-medium text-muted-foreground">{message}</p>
-      {/* <Button variant="secondary" size="sm" asChild>
+      <Button variant="secondary" size="sm" asChild>
         <Link href="/">Back to home</Link>
-      </Button> */}
+      </Button>
     </div>
   );
 };

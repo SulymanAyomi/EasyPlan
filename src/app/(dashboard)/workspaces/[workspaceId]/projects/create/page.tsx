@@ -1,5 +1,4 @@
 import { CreateProject } from "@/features/projects/components/create-project";
-import { CreateWorkspaceForm } from "@/features/workspaces/components/create-workspace-form";
 
 const WorkspaceCreatePage = () => {
   return (

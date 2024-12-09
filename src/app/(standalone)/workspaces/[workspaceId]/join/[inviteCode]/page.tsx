@@ -10,7 +10,9 @@ interface WorkspaceIdJoinPageProps {
   };
 }
 
-const WorkspaceIdJoinPage = async ({ params }: WorkspaceIdJoinPageProps) => {
+export const WorkspaceIdJoinPage = async ({
+  params,
+}: WorkspaceIdJoinPageProps) => {
   const user = await getCurrent();
   if (!user) redirect("/sign-in");
 
