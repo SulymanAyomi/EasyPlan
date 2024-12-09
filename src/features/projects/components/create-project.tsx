@@ -82,7 +82,7 @@ export const CreateProject = () => {
         </div>
         <div className="flex flex-row w-full justify-between gap-4 text-center">
           <div
-            onClick={() => quickProject("Plan a financial statement preparation and analysis for a company")}
+            onClick={() => quickProject("Create a task list for preparing a financial statement, including deadlines")}
             className="flex flex-1 flex-col gap-5 font-light text-sm border p-8 border-neutral-200 rounded-lg h-full items-center justify-between cursor-pointer"
           >
             <Image
