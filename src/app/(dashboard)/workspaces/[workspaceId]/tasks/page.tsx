@@ -12,3 +12,5 @@ const TaskIdPage = async () => {
     </div>
   );
 };
+
+export default TaskIdPage;
