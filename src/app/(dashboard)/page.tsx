@@ -6,7 +6,7 @@ export default async function Home() {
   const user = await getCurrent();
   if (!user) redirect("/sign-in");
   const workspace = await getWorkspaces();
-  if (workspace.total === 0) {
+  if (workspace.total === 0 || !workspace.documents) {
     redirect("/workspaces/create");
   } else {
     redirect(`/workspaces/${workspace?.documents[0].$id}`);
