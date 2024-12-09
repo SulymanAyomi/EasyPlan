@@ -28,6 +28,9 @@ export const ProjectSwitcher = () => {
   const onSelect = (id: string) => {
     router.push(`/workspaces/${workspaceId}/projects/${id}`);
   };
+if(data.documents.total === 0) {
+router.push(`/workspaces/${workspaceId}/projects/create`);
+}
   const createButton = () => {
     router.push(`/workspaces/${workspaceId}/projects/create`);
   };
