@@ -5,11 +5,11 @@ import { InferRequestType, InferResponseType } from "hono";
 import { client } from "@/lib/rpc";
 import { useRouter } from "next/navigation";
 
-type ResponseType = InferResponseType<typeof client.api.tasks[":taskId"]["$delete"], 200>
-type RequestType = InferRequestType<typeof client.api.tasks[":taskId"]["$delete"]>
+type ResponseType = InferResponseType<typeof client.api.tasks["bulk-update"]["$post"], 200>
+type RequestType = InferRequestType<typeof client.api.tasks["bulk-update"]["$post"]>
 
 
-export const useDeleteTask = () => {
+export const useBulkUpdateTask = () => {
     const queryClient = useQueryClient()
     const router = useRouter()
     const mutation = useMutation<
@@ -17,20 +17,19 @@ export const useDeleteTask = () => {
         Error,
         RequestType
     >({
-        mutationFn: async ({ param }) => {
-            const response = await client.api.tasks[":taskId"]["$delete"]({ param })
+        mutationFn: async ({ json }) => {            // 
+            const response = await client.api.tasks["bulk-update"]["$post"]({ json })
             if (!response.ok) {
-                throw new Error("Failed to delete task")
+                throw new Error("Failed to create task")
             }
             return await response.json()
         },
-        onSuccess: ({ data }) => {
-            toast.success("Task deleted successfully")
+        onSuccess: () => {
+            toast.success("Task updated")
             queryClient.invalidateQueries({ queryKey: ["tasks"] })
-            queryClient.invalidateQueries({ queryKey: ["task", data.$id] })
         },
         onError: () => {
-            toast.error("Failed to delete task")
+            toast.error("Failed to update task")
         }
     })
     return mutation

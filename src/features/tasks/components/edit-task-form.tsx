@@ -35,33 +35,39 @@ import { MemberAvatar } from "@/features/members/components/member-avatar";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 
 import { createTaskSchema } from "../schema";
-import { TaskStatus } from "../types";
+import { Task, TaskStatus } from "../types";
+import { useEditTask } from "../api/use-edit-task";
 
-interface CreateTaskFormProps {
+interface EditTaskFormProps {
   onCancel?: () => void;
   projectOptions: { id: string; name: string; imageUrl: string }[];
   memberOptions: { id: string; name: string }[];
+  initialValues: Task;
 }
 
-export const CreateTaskForm = ({
+export const EditTaskForm = ({
   onCancel,
   projectOptions,
   memberOptions,
-}: CreateTaskFormProps) => {
+  initialValues,
+}: EditTaskFormProps) => {
   const router = useRouter();
-  const { mutate, isPending } = useCreateTask();
+  const { mutate, isPending } = useEditTask();
   const workspaceId = useWorkspaceId();
 
   const form = useForm<z.infer<typeof createTaskSchema>>({
     resolver: zodResolver(createTaskSchema),
     defaultValues: {
-      workspaceId,
+      ...initialValues,
+      dueDate: initialValues.duedate
+        ? new Date(initialValues.dueDate)
+        : undefined,
     },
   });
 
   const onSubmit = (values: z.infer<typeof createTaskSchema>) => {
     mutate(
-      { json: { ...values } },
+      { json: values, param: { taskId: initialValues.$id } },
       {
         onSuccess: ({ data }) => {
           form.reset();
@@ -74,7 +80,7 @@ export const CreateTaskForm = ({
   return (
     <Card className="w-full h-full border-none shadow-none">
       <CardHeader className="flex p-7">
-        <CardTitle className="text-xl font-bold">Create a new Task</CardTitle>
+        <CardTitle className="text-xl font-bold">Edit a task</CardTitle>
       </CardHeader>
       <div className="px-7 mb-3">
         <DottedSeparator />
@@ -225,9 +231,8 @@ export const CreateTaskForm = ({
               >
                 Cancle
               </Button>
-
               <Button size="lg" disabled={isPending}>
-                Create Task
+                Save changes
               </Button>
             </div>
           </form>
