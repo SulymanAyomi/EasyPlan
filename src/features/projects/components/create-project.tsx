@@ -82,7 +82,7 @@ export const CreateProject = () => {
         </div>
         <div className="flex flex-row w-full justify-between gap-4 text-center">
           <div
-            onClick={() => quickProject("Plan a marketing campaign")}
+            onClick={() => quickProject("Plan a financial statement preparation and analysis for a company")}
             className="flex flex-1 flex-col gap-5 font-light text-sm border p-8 border-neutral-200 rounded-lg h-full items-center justify-between cursor-pointer"
           >
             <Image
@@ -92,7 +92,7 @@ export const CreateProject = () => {
               width={40}
               className="object-cover"
             />
-            <span>Plan a marketing campaign</span>
+            <span>Plan a financial statement preparation and analysis.</span>
           </div>
           <div
             onClick={() => quickProject("Plan a bungalow project")}
@@ -108,7 +108,7 @@ export const CreateProject = () => {
             <span>Plan a bungalow project</span>
           </div>
           <div
-            onClick={() => quickProject("Plan a fitness program")}
+            onClick={() => quickProject("Plan a new product launch")}
             className="flex flex-1 flex-col gap-5 font-light text-sm border p-8 border-neutral-200 rounded-lg h-full items-center justify-between cursor-pointer"
           >
             <Image
@@ -118,7 +118,7 @@ export const CreateProject = () => {
               width={40}
               className="object-cover"
             />
-            <span>Plan a fitness program</span>
+            <span>Plan a new product launch</span>
           </div>
         </div>
       </div>
