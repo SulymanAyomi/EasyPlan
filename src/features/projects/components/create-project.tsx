@@ -77,16 +77,16 @@ export const CreateProject = () => {
     <div className="flex h-full w-full flex-col items-center">
       <div className="flex-1 flex flex-col justify-center items-center gap-[50px]">
         <div className="flex items-center opacity-20 gap-5">
-          <Image src="/upload.png" alt="" height={64} width={64} />
+          <Image src="/logo.svg" alt="" height={64} width={64} />
           <h1 className="lg:text-6xl text-4xl">EasyPlanAI</h1>
         </div>
-        <div className="flex flex-row w-full justify-between gap-4">
+        <div className="flex flex-row w-full justify-between gap-4 text-center">
           <div
             onClick={() => quickProject("Plan a marketing campaign")}
             className="flex flex-1 flex-col gap-5 font-light text-sm border p-8 border-neutral-200 rounded-lg h-full items-center justify-between cursor-pointer"
           >
             <Image
-              src="/offerProduct.png"
+              src="/image1.svg"
               alt=""
               height={40}
               width={40}
@@ -99,7 +99,7 @@ export const CreateProject = () => {
             className="flex flex-1 flex-col gap-5 font-light text-sm border p-8 border-neutral-200 rounded-lg h-full items-center justify-between cursor-pointer"
           >
             <Image
-              src="/offerProduct.png"
+              src="/image2.svg"
               alt=""
               height={40}
               width={40}
@@ -112,7 +112,7 @@ export const CreateProject = () => {
             className="flex flex-1 flex-col gap-5 font-light text-sm border p-8 border-neutral-200 rounded-lg h-full items-center justify-between cursor-pointer"
           >
             <Image
-              src="/offerProduct.png"
+              src="/image3.svg"
               alt=""
               height={40}
               width={40}
