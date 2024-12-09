@@ -109,7 +109,7 @@ export const SignUpCard = () => {
               )}
             ></FormField>
             <Button disabled={isPending} size="lg" className="w-full">
-              Login
+              Sign up
             </Button>
           </form>
         </Form>
