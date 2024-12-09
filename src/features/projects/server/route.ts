@@ -138,7 +138,7 @@ const app = new Hono()
             const jsonResponse = result2.response.text()
             const slicedResponse = jsonResponse.slice(8, -4)
             const objResponse = JSON.parse(slicedResponse)
-            console.log(objResponse);
+            
 
 
             const projectName = objResponse.projectName
