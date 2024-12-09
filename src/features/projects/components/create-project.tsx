@@ -92,7 +92,7 @@ export const CreateProject = () => {
               width={40}
               className="object-cover"
             />
-            <span>Plan a financial statement preparation and analysis.</span>
+            <span>Financial statement preparation.</span>
           </div>
           <div
             onClick={() => quickProject("Plan a bungalow project")}
