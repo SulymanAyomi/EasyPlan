@@ -10,9 +10,7 @@ interface WorkspaceIdJoinPageProps {
   };
 }
 
-export const WorkspaceIdJoinPage = async ({
-  params,
-}: WorkspaceIdJoinPageProps) => {
+const WorkspaceIdJoinPage = async ({ params }: WorkspaceIdJoinPageProps) => {
   const user = await getCurrent();
   if (!user) redirect("/sign-in");
 
@@ -34,3 +32,5 @@ export const WorkspaceIdJoinPage = async ({
     </div>
   );
 };
+
+export default WorkspaceIdJoinPage;
