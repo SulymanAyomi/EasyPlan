@@ -1,4 +1,5 @@
 import { Hono } from "hono"
+import { cors } from 'hono/cors'
 import { handle } from "hono/vercel"
 import auth from "@/features/auth/server/route"
 import workspace from "@/features/workspaces/server/route"
@@ -7,6 +8,7 @@ import projects from "@/features/projects/server/route"
 import tasks from "@/features/tasks/server/route"
 
 const app = new Hono().basePath("/api")
+app.use('/api/*', cors())
 
 const routes = app
     .route("/auth", auth)
