@@ -7,6 +7,7 @@ import {
 } from "@hello-pangea/dnd";
 import { Task, TaskStatus } from "@/features/tasks/types";
 import { KanbanColumnHeader } from "./kanban-column-header";
+import { KanbanCard } from "./kanban-card";
 
 interface DataKanbanProps {
   data: Task[];
@@ -182,7 +183,9 @@ export const DataKanban = ({ data, onChange }: DataKanbanProps) => {
                             ref={provided.innerRef}
                             {...provided.dragHandleProps}
                             {...provided.draggableProps}
-                          ></div>
+                          >
+                           <KanbanCard task={task}/>
+                           </div>
                         )}
                       </Draggable>
                     ))}
