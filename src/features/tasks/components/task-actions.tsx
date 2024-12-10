@@ -50,7 +50,7 @@ export const TaskActions = ({ id, projectId, children }: TaskActionsProps) => {
         <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-48">
           <DropdownMenuItem
-            onClick={() => open(id)}
+            onClick={onOpenTask}
             disabled={false}
             className="font-medium p-[10px]"
           >
@@ -66,7 +66,7 @@ export const TaskActions = ({ id, projectId, children }: TaskActionsProps) => {
             Open Project
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={onOpenTask}
+            onClick={open(id)}
             disabled={false}
             className="font-medium p-[10px]"
           >
