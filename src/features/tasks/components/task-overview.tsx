@@ -7,6 +7,7 @@ import { TaskDate } from "./task-date";
 import { Badge } from "@/components/ui/badge";
 import { snakeCaseToTitleCase } from "@/lib/utils";
 import { useEditTaskModal } from "../hooks/use-edit-task-modal";
+import { Fragment } from "react";
 
 interface TaskOverviewProps {
   task: Task;
@@ -25,8 +26,12 @@ export const TaskOverview = ({ task }: TaskOverviewProps) => {
         </div>
         <div className="flex flex-col gap-y-4">
           <OverViewProperty label="Assignee">
-            <MemberAvatar name={task.assignee.name} className="size-6" />
-            <p className="text-sm font-medium">{task.assignee.name}</p>
+            {task.assignee && (
+              <Fragment>
+                ( <MemberAvatar name={task.assignee.name} className="size-6" />
+                <p className="text-sm font-medium">{task.assignee.name}</p>)
+              </Fragment>
+            )}
           </OverViewProperty>
           <OverViewProperty label="Due Date">
             <TaskDate value={task.dueDate} className="text-sm font-medium" />

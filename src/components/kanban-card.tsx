@@ -21,10 +21,12 @@ export const KanbanCard = ({ task }: KanbanCardProps) => {
       </div>
       <DottedSeparator />
       <div className="flex items-center gap-x-1.5">
-        <MemberAvatar
-          name={task.assignee.name}
-          fallbackClassName="text-[10px]"
-        />
+        {task.assignee && (
+          <MemberAvatar
+            name={task.assignee.name}
+            fallbackClassName="text-[10px]"
+          />
+        )}
         <div className="size-1 rounded-full bg-neutral-300" />
         <TaskDate value={task.dueDate} className="text-xs" />
       </div>

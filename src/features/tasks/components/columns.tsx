@@ -72,16 +72,18 @@ export const columns: ColumnDef<Task>[] = [
     },
     cell: ({ row }) => {
       const assignee = row.original.assignee;
-      return (
-        <div className="flex items-center gap-x-2 font-medium">
-          {/* <MemberAvatar
-            className="size-6"
-            fallbackClassName="text-xs"
-            name={assignee.name}
-          /> */}
-          <p className="line-clamp-1">{assignee}</p>
-        </div>
-      );
+      if (assignee) {
+        return (
+          <div className="flex items-center gap-x-2 font-medium">
+            <MemberAvatar
+              className="size-6"
+              fallbackClassName="text-xs"
+              name={assignee.name}
+            />
+            <p className="line-clamp-1">{assignee.name}</p>
+          </div>
+        );
+      }
     },
   },
   {

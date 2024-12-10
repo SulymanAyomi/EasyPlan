@@ -156,7 +156,7 @@ export const DataKanban = ({ data, onChange }: DataKanbanProps) => {
   );
 
   return (
-    <DragDropContext onDragEnd={() => {}}>
+    <DragDropContext onDragEnd={() => onDragEnd}>
       <div className="flex overflow-x-auto">
         {boards.map((board) => {
           return (
@@ -184,8 +184,8 @@ export const DataKanban = ({ data, onChange }: DataKanbanProps) => {
                             {...provided.dragHandleProps}
                             {...provided.draggableProps}
                           >
-                           <KanbanCard task={task}/>
-                           </div>
+                            <KanbanCard task={task} />
+                          </div>
                         )}
                       </Draggable>
                     ))}
