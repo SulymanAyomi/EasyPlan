@@ -1,5 +1,5 @@
 import { toast } from "sonner";
-import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
 
 import { client } from "@/lib/rpc";
@@ -24,9 +24,11 @@ export const useCreateProject = () => {
             }
             return await response.json()
         },
-        onSuccess: ({ data }) => {
+        onSuccess: () => {
             toast.success("Project created")
             router.refresh()
+            queryClient.invalidateQueries({ queryKey: ["workspace-analytics"] })
+            queryClient.invalidateQueries({ queryKey: ["project-analytics"] })
             queryClient.invalidateQueries({ queryKey: ["projects"] })
         },
         onError: () => {

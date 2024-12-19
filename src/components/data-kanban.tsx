@@ -156,7 +156,7 @@ export const DataKanban = ({ data, onChange }: DataKanbanProps) => {
   );
 
   return (
-    <DragDropContext onDragEnd={() => onDragEnd}>
+    <DragDropContext onDragEnd={onDragEnd}>
       <div className="flex overflow-x-auto">
         {boards.map((board) => {
           return (

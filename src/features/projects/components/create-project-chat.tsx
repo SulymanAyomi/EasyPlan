@@ -1,7 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from "./create-project-chat.module.css";
-import { DottedSeparator } from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
-import { CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { ArrowUp } from "lucide-react";
@@ -14,6 +13,7 @@ interface CreateProjectChatProps {
 }
 
 export const CreateProjectChat = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   initialValues,
   chat,
 }: CreateProjectChatProps) => {

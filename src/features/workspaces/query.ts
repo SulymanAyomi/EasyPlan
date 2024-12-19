@@ -1,12 +1,9 @@
-import { cookies } from "next/headers";
-import { Account, Client, Databases, Query } from "node-appwrite";
+import { Query } from "node-appwrite";
 
-import { AUTH_COOKIE } from "@/features/auth/constants";
-import { DATEBASE_ID, MEMBERS_ID, WORKSPACES_ID } from "@/config";
+import { DATABASE_ID, MEMBERS_ID, WORKSPACES_ID } from "@/config";
 import { getMember } from "../members/utils";
 import { Workspace } from "./types";
 import { createSessionClient } from "@/lib/appwrite";
-import workspaceId from "@/app/(dashboard)/workspaces/[workspaceId]/page";
 
 export const getWorkspaces = async () => {
     const { account, databases } = await createSessionClient()
@@ -15,7 +12,7 @@ export const getWorkspaces = async () => {
 
 
     const members = await databases.listDocuments(
-        DATEBASE_ID,
+        DATABASE_ID,
         MEMBERS_ID,
         [Query.equal("userId", user.$id)]
     )
@@ -26,7 +23,7 @@ export const getWorkspaces = async () => {
 
 
     const workspaces = await databases.listDocuments<Workspace>(
-        DATEBASE_ID,
+        DATABASE_ID,
         WORKSPACES_ID,
         [Query.orderDesc("$createdAt"),
         Query.contains("$id", workspaceIds)]
@@ -57,7 +54,7 @@ export const getWorkspace = async ({ workspaceId }: GetWorkspaceProps) => {
 
 
     const workspace = await databases.getDocument<Workspace>(
-        DATEBASE_ID,
+        DATABASE_ID,
         WORKSPACES_ID,
         workspaceId
     )
@@ -72,9 +69,9 @@ interface GetWorkspaceInfoProps {
 }
 
 export const getWorkspaceInfo = async ({ workspaceId }: GetWorkspaceInfoProps) => {
-    const { databases, account } = await createSessionClient()
+    const { databases } = await createSessionClient()
     const workspace = await databases.getDocument<Workspace>(
-        DATEBASE_ID,
+        DATABASE_ID,
         WORKSPACES_ID,
         workspaceId
     )

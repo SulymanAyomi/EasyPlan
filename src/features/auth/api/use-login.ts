@@ -28,7 +28,6 @@ export const useLogin = () => {
             // return { error: err }
         },
         onSuccess: async () => {
-            toast.success("User registered successfully")
             router.push("/")
             queryClient.invalidateQueries({ queryKey: ["current"] })
             queryClient.invalidateQueries({ queryKey: ["workspaces"] })

@@ -4,10 +4,9 @@ import { sessionMiddleware } from "@/lib/session-middleware";
 import { zValidator } from "@hono/zod-validator";
 import { createAdminClient } from "@/lib/appwrite";
 import { getMember } from "../utils";
-import { DATEBASE_ID, MEMBERS_ID } from "@/config";
+import { DATABASE_ID, MEMBERS_ID } from "@/config";
 import { Query } from "node-appwrite";
-import { error } from "console";
-import { MemberRole } from "../types";
+import { Member, MemberRole } from "../types";
 
 const app = new Hono()
     .get("/", sessionMiddleware,
@@ -28,8 +27,8 @@ const app = new Hono()
                 return c.json({ error: "Unauthorized" }, 401)
             }
 
-            const members = await databases.listDocuments(
-                DATEBASE_ID,
+            const members = await databases.listDocuments<Member>(
+                DATABASE_ID,
                 MEMBERS_ID,
                 [Query.equal("workspaceId", workspaceId)]
             )
@@ -60,13 +59,13 @@ const app = new Hono()
             const databases = c.get("databases")
 
             const memberToDelete = await databases.getDocument(
-                DATEBASE_ID,
+                DATABASE_ID,
                 MEMBERS_ID,
                 memberId
             )
 
             const allMembersInWorkspace = await databases.listDocuments(
-                DATEBASE_ID,
+                DATABASE_ID,
                 MEMBERS_ID,
                 [Query.equal("workspaceId", memberToDelete.$id)]
             )
@@ -90,7 +89,7 @@ const app = new Hono()
             }
 
             await databases.deleteDocument(
-                DATEBASE_ID,
+                DATABASE_ID,
                 MEMBERS_ID,
                 memberId
             )
@@ -105,16 +104,15 @@ const app = new Hono()
             const { memberId } = c.req.param()
             const user = c.get("user")
             const databases = c.get("databases")
-            const role = c.req.valid("json")
 
             const memberToUpdate = await databases.getDocument(
-                DATEBASE_ID,
+                DATABASE_ID,
                 MEMBERS_ID,
                 memberId
             )
 
             const allMembersInWorkspace = await databases.listDocuments(
-                DATEBASE_ID,
+                DATABASE_ID,
                 MEMBERS_ID,
                 [Query.equal("workspaceId", memberToUpdate.$id)]
             )
@@ -138,7 +136,7 @@ const app = new Hono()
             }
 
             await databases.updateDocument(
-                DATEBASE_ID,
+                DATABASE_ID,
                 MEMBERS_ID,
                 memberId
             )

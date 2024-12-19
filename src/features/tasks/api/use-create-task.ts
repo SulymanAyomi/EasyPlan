@@ -1,9 +1,8 @@
 import { toast } from "sonner";
-import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
 
 import { client } from "@/lib/rpc";
-import { useRouter } from "next/navigation";
 
 type ResponseType = InferResponseType<typeof client.api.tasks["$post"], 200>
 type RequestType = InferRequestType<typeof client.api.tasks["$post"]>
@@ -11,7 +10,6 @@ type RequestType = InferRequestType<typeof client.api.tasks["$post"]>
 
 export const useCreateTask = () => {
     const queryClient = useQueryClient()
-    const router = useRouter()
     const mutation = useMutation<
         ResponseType,
         Error,
@@ -27,6 +25,8 @@ export const useCreateTask = () => {
         onSuccess: () => {
             toast.success("Task created")
             queryClient.invalidateQueries({ queryKey: ["tasks"] })
+            queryClient.invalidateQueries({ queryKey: ["workspace-analytics"] })
+            queryClient.invalidateQueries({ queryKey: ["project-analytics"] })
         },
         onError: () => {
             toast.error("Failed to create task")

@@ -1,5 +1,3 @@
-import "./data-calender.module.css";
-
 import { Task } from "../types";
 import {
   format,
@@ -20,6 +18,9 @@ import {
   Calendar as CalenderIcon,
   ChevronRightIcon,
 } from "lucide-react";
+
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import "./data-calender.css";
 
 const locales = {
   "en-Us": enUS,

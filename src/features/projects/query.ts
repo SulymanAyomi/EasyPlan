@@ -1,5 +1,5 @@
 
-import { CHATS_ID, DATEBASE_ID, MEMBERS_ID, PROJECTS_ID, WORKSPACES_ID } from "@/config";
+import { CHATS_ID, DATABASE_ID, PROJECTS_ID, } from "@/config";
 import { getMember } from "../members/utils";
 import { createSessionClient } from "@/lib/appwrite";
 import { Chat, Project } from "./types";
@@ -18,7 +18,7 @@ export const getProject = async ({ projectId }: GetProjectProps) => {
         const user = await account.get()
 
         const project = await databases.getDocument<Project>(
-            DATEBASE_ID,
+            DATABASE_ID,
             PROJECTS_ID,
             projectId
         )
@@ -49,7 +49,7 @@ export const getProjectChats = async ({ projectId }: GetProjectProps) => {
         const user = await account.get()
 
         const project = await databases.getDocument<Project>(
-            DATEBASE_ID,
+            DATABASE_ID,
             PROJECTS_ID,
             projectId
         )
@@ -63,7 +63,7 @@ export const getProjectChats = async ({ projectId }: GetProjectProps) => {
             throw new Error("unauthorized")
         }
         const chat = await databases.listDocuments(
-            DATEBASE_ID,
+            DATABASE_ID,
             CHATS_ID,
             [Query.equal("projectId", project.$id),
             Query.orderDesc("$createdAt")

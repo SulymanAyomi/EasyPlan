@@ -1,4 +1,3 @@
-import workspaceId from "@/app/(dashboard)/workspaces/[workspaceId]/page"
 import { z } from "zod"
 
 export const createProjectSchema = z.object({

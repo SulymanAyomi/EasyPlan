@@ -1,7 +1,6 @@
 "use client";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 
@@ -48,7 +47,6 @@ export const CreateTaskForm = ({
   projectOptions,
   memberOptions,
 }: CreateTaskFormProps) => {
-  const router = useRouter();
   const { mutate, isPending } = useCreateTask();
   const workspaceId = useWorkspaceId();
 
@@ -63,7 +61,7 @@ export const CreateTaskForm = ({
     mutate(
       { json: { ...values } },
       {
-        onSuccess: ({ data }) => {
+        onSuccess: () => {
           form.reset();
           onCancel?.();
         },

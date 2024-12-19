@@ -6,7 +6,7 @@ import { zValidator } from "@hono/zod-validator";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import { createAdminClient } from "@/lib/appwrite";
 
-import { DATEBASE_ID, MEMBERS_ID, PROJECTS_ID, TASKS_ID } from "@/config";
+import { DATABASE_ID, MEMBERS_ID, PROJECTS_ID, TASKS_ID } from "@/config";
 import { getMember } from "@/features/members/utils";
 import { createTaskSchema } from "../schema";
 import { Task, TaskStatus } from "../types";
@@ -22,7 +22,7 @@ const app = new Hono()
             const { taskId } = c.req.param()
 
             const task = await databases.getDocument<Task>(
-                DATEBASE_ID,
+                DATABASE_ID,
                 TASKS_ID,
                 taskId
             )
@@ -36,7 +36,7 @@ const app = new Hono()
             }
 
             await databases.deleteDocument(
-                DATEBASE_ID,
+                DATABASE_ID,
                 TASKS_ID,
                 taskId
             )
@@ -101,23 +101,32 @@ const app = new Hono()
             }
 
             const tasks = await databases.listDocuments<Task>(
-                DATEBASE_ID,
+                DATABASE_ID,
                 TASKS_ID,
                 query
             )
+
+            if (tasks.total == 0) {
+                return c.json({
+                    data: {
+                        documents: [],
+                        total: 0
+                    }
+                })
+            }
             const projectIds = tasks.documents.map((task) => task.projectId)
             const assigneeIds = tasks.documents.map((task) => task.assigneeId)
 
 
 
             const projects = await databases.listDocuments<Project>(
-                DATEBASE_ID,
+                DATABASE_ID,
                 PROJECTS_ID,
                 projectIds.length > 0 ? [Query.contains("$id", projectIds)] : []
             )
 
             const members = await databases.listDocuments(
-                DATEBASE_ID,
+                DATABASE_ID,
                 MEMBERS_ID,
                 assigneeIds.length > 0 ? [Query.contains("$id", assigneeIds)] : []
             )
@@ -180,7 +189,7 @@ const app = new Hono()
                 c.json({ error: "Unauthorized" }, 401)
             }
             const highestPositionTask = await databases.listDocuments(
-                DATEBASE_ID,
+                DATABASE_ID,
                 TASKS_ID,
                 [
                     Query.equal("status", status),
@@ -192,7 +201,7 @@ const app = new Hono()
             const newPosition = highestPositionTask.documents.length > 0 ? highestPositionTask.documents[0].position + 1000 : 1000
 
             const task = await databases.createDocument(
-                DATEBASE_ID,
+                DATABASE_ID,
                 TASKS_ID,
                 ID.unique(),
                 {
@@ -219,7 +228,7 @@ const app = new Hono()
             const databases = c.get("databases");
 
             const exisitingTask = await databases.getDocument<Task>(
-                DATEBASE_ID,
+                DATABASE_ID,
                 TASKS_ID,
                 taskId
             )
@@ -243,7 +252,7 @@ const app = new Hono()
             }
 
             const task = await databases.createDocument(
-                DATEBASE_ID,
+                DATABASE_ID,
                 TASKS_ID,
                 ID.unique(),
                 {
@@ -259,7 +268,8 @@ const app = new Hono()
             return c.json({ data: task })
 
         }
-    ).get("/:taskId",
+    )
+    .get("/:taskId",
         sessionMiddleware,
         async (c) => {
             const currentUser = c.get("user")
@@ -268,7 +278,7 @@ const app = new Hono()
             const { taskId } = c.req.param()
 
             const task = await databases.getDocument<Task>(
-                DATEBASE_ID,
+                DATABASE_ID,
                 TASKS_ID,
                 taskId
             )
@@ -287,12 +297,12 @@ const app = new Hono()
             }
 
             const project = await databases.getDocument<Project>(
-                DATEBASE_ID,
+                DATABASE_ID,
                 PROJECTS_ID,
                 task.projectId
             )
             const member = await databases.getDocument(
-                DATEBASE_ID,
+                DATABASE_ID,
                 MEMBERS_ID,
                 task.assigneeId
 
@@ -313,7 +323,8 @@ const app = new Hono()
             })
 
         }
-    ).post("/bulk-update",
+    )
+    .post("/bulk-update",
         sessionMiddleware,
         zValidator(
             "json",
@@ -330,10 +341,10 @@ const app = new Hono()
         async (c) => {
             const databases = c.get("databases")
             const user = c.get("user")
-            const { tasks } = await c.req.valid("json")
+            const { tasks } = c.req.valid("json")
 
             const tasksToUpdate = await databases.listDocuments(
-                DATEBASE_ID,
+                DATABASE_ID,
                 TASKS_ID,
                 [Query.contains("$id", tasks.map((task) => task.$id))]
             )
@@ -342,8 +353,8 @@ const app = new Hono()
                 return c.json({ error: "All tasks must belong to the sane workspace." })
 
             }
-
-            const workspaceId = workspaceIds.values().next().value()
+            console.log(workspaceIds)
+            const workspaceId = workspaceIds.values().next().value
 
             const member = await getMember({
                 databases,
@@ -359,7 +370,7 @@ const app = new Hono()
                 tasks.map(async (task) => {
                     const { $id, status, position } = task
                     return databases.updateDocument<Task>(
-                        DATEBASE_ID,
+                        DATABASE_ID,
                         TASKS_ID,
                         $id,
                         { status, position }

@@ -33,7 +33,9 @@ export const ProjectAvatar = ({
           "text-white bg-blue-600 font-semibold text-sm uppercase rounded-md",
           fallbackClassname
         )}
-      ></AvatarFallback>
+      >
+        {name.charAt(0).toUpperCase()}
+      </AvatarFallback>
     </Avatar>
   );
 };

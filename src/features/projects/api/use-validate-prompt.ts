@@ -1,5 +1,5 @@
 import { toast } from "sonner";
-import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
 
 import { client } from "@/lib/rpc";
@@ -10,7 +10,6 @@ type RequestType = InferRequestType<typeof client.api.projects.validate["$post"]
 
 
 export const useValidatePrompt = () => {
-    const queryClient = useQueryClient()
     const router = useRouter()
     const mutation = useMutation<
         ResponseType,
@@ -27,7 +26,6 @@ export const useValidatePrompt = () => {
         onSuccess: ({ data }) => {
             if (data.valid) {
                 toast.success("Initializing project...")
-                // queryClient.invalidateQueries({ queryKey: ["projects"] })
             }
             router.refresh()
         },

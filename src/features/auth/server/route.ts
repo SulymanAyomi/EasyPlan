@@ -52,7 +52,7 @@ const app = new Hono()
 
         const { account } = await createAdminClient()
 
-        const user = await account.create(
+        await account.create(
             ID.unique(),
             email,
             password,

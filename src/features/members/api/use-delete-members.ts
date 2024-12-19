@@ -1,5 +1,5 @@
 import { toast } from "sonner";
-import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
 
 import { client } from "@/lib/rpc";
@@ -24,7 +24,7 @@ export const useDeleteMembers = () => {
             }
             return await response.json()
         },
-        onSuccess: ({ data }) => {
+        onSuccess: () => {
             toast.success("Member removed successfully")
             router.refresh()
             queryClient.invalidateQueries({ queryKey: ["members"] })

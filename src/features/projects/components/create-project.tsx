@@ -1,27 +1,20 @@
 "use client";
-import { DottedSeparator } from "@/components/dotted-separator";
-import { Button } from "@/components/ui/button";
-import { CardHeader } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  ArrowBigUp,
-  ArrowUp,
-  StopCircle,
-  StopCircleIcon,
-  UploadCloud,
-  UploadCloudIcon,
-} from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
-import { createProjectSchema } from "../schema";
-import { useRouter } from "next/navigation";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { z } from "zod";
+import Image from "next/image";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowUp, StopCircleIcon } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+
 import { useCreateProject } from "../api/use-create-project";
 import { useValidatePrompt } from "../api/use-validate-prompt";
+import { createProjectSchema } from "../schema";
+
+import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
+
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export const CreateProject = () => {
   const router = useRouter();
@@ -57,7 +50,6 @@ export const CreateProject = () => {
               { form: finalValues },
               {
                 onSuccess: ({ data }) => {
-                  // console.log(data, "projjjjjjjjjjjj");
                   router.push(
                     `/workspaces/${data.workspaceId}/projects/create/${data.$id}`
                   );
@@ -82,7 +74,11 @@ export const CreateProject = () => {
         </div>
         <div className="flex flex-row w-full justify-between gap-4 text-center">
           <div
-            onClick={() => quickProject("Create a task list for preparing a financial statement, including deadlines")}
+            onClick={() =>
+              quickProject(
+                "Create a task list for preparing a financial statement, including deadlines"
+              )
+            }
             className="flex flex-1 flex-col gap-5 font-light text-sm border p-8 border-neutral-200 rounded-lg h-full items-center justify-between cursor-pointer"
           >
             <Image

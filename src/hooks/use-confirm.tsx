@@ -7,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { title } from "process";
 import { useState } from "react";
 
 export const useConfirm = (
@@ -55,7 +54,7 @@ export const useConfirm = (
               Cancel
             </Button>
             <Button
-              onClick={handleCancel}
+              onClick={handleConfirm}
               variant={variant}
               className="w-full lg:w-auto"
             >

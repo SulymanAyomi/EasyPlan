@@ -13,7 +13,6 @@ import { FolderIcon, ListChecksIcon, UserIcon } from "lucide-react";
 import { TaskStatus } from "../types";
 import { useTaskFilters } from "../hooks/use-task-filters";
 import { DatePicker } from "@/components/date-picker";
-import { date } from "zod";
 
 interface DataFiltersProps {
   hideProjectFilter?: boolean;
@@ -52,7 +51,7 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
   };
 
   const isLoading = isLoadindMembers || isLoadingProject;
-  if (!isLoading) return null;
+  if (isLoading) return null;
 
   return (
     <div className="flex flex-col lg:flex-row gap-2">
@@ -101,7 +100,9 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
           <SelectItem value="all">All assignees</SelectItem>
           <SelectSeparator />
           {memberOptions?.map((member) => (
-            <SelectItem value={member.id}>{member.name}</SelectItem>
+            <SelectItem value={member.id} key={member.id}>
+              {member.name}
+            </SelectItem>
           ))}
         </SelectContent>
       </Select>
@@ -120,7 +121,9 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
             <SelectItem value="all">All projects</SelectItem>
             <SelectSeparator />
             {projectOptions?.map((project) => (
-              <SelectItem value={project.id}>{project.name}</SelectItem>
+              <SelectItem value={project.id} key={project.id}>
+                {project.name}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>

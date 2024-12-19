@@ -33,7 +33,6 @@ export const useGetTasks = ({
             const response = await client.api.tasks["$get"]({
                 query: {
                     workspaceId,
-
                     projectId: projectId ?? undefined,
                     status: status ?? undefined,
                     assigneeId: assigneeId ?? undefined,

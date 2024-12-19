@@ -29,7 +29,6 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useConfirm } from "@/hooks/use-confirm";
-import workspaceId from "@/app/(dashboard)/workspaces/[workspaceId]/page";
 
 import { updateWorkspaceSchema } from "../schemas";
 import { Workspace } from "../types";
@@ -80,7 +79,7 @@ export const EditWorkspaceForm = ({
     mutate(
       { form: finalValues, param: { workspaceId: initialValues.$id } },
       {
-        onSuccess: ({ data }) => {
+        onSuccess: () => {
           form.reset();
         },
       }
@@ -151,9 +150,11 @@ export const EditWorkspaceForm = ({
               <ArrowLeftIcon className="size-4 mr-2" />
               Back
             </Button>
-            <CardTitle className="text-xl font-bold">
-              {initialValues.name}
-            </CardTitle>
+            <CardDescription>
+              <CardTitle className="text-xl font-bold">
+                {initialValues.name}
+              </CardTitle>
+            </CardDescription>
           </CardHeader>
           <div className="px-7 mb-3">
             <DottedSeparator />

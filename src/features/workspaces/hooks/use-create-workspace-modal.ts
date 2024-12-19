@@ -1,4 +1,3 @@
-import { open } from "fs"
 import { useQueryState, parseAsBoolean } from "nuqs"
 
 export const useCreateWorkspaceModal = () => {

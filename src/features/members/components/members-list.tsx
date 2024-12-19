@@ -72,7 +72,7 @@ export const MembersList = () => {
       <div className="px-7">
         <DottedSeparator />
       </div>
-      <CardContent>
+      <CardContent className="flex justify-center">
         {data?.documents.map((member, index) => (
           <Fragment key={member.$id}>
             <div className="flex items-center gap-2">

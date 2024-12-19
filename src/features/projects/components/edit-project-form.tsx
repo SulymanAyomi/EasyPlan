@@ -2,19 +2,12 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
-import { ArrowLeftIcon, CopyIcon, ImageIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
-import { toast } from "sonner";
+import { ArrowLeftIcon, ImageIcon } from "lucide-react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   FormControl,
   FormField,
@@ -29,7 +22,6 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useConfirm } from "@/hooks/use-confirm";
-import workspaceId from "@/app/(dashboard)/workspaces/[workspaceId]/page";
 
 import { Project } from "../types";
 import { useUpdateProject } from "../api/use-update-project";
@@ -73,7 +65,7 @@ export const EditProjectForm = ({
     mutate(
       { form: finalValues, param: { projectId: initialValues.$id } },
       {
-        onSuccess: ({ data }) => {
+        onSuccess: () => {
           form.reset();
         },
       }

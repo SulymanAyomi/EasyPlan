@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { useDeleteTask } from "../api/use-delete-task";
 import { useConfirm } from "@/hooks/use-confirm";
 import { useRouter } from "next/navigation";
-import { handle } from "hono/vercel";
 
 interface TaskBreadcrumbsProps {
   project: Project;

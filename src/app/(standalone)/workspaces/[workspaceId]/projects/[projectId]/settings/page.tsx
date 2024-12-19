@@ -2,6 +2,7 @@ import { getCurrent } from "@/features/auth/query";
 import { EditProjectForm } from "@/features/projects/components/edit-project-form";
 import { getProject } from "@/features/projects/query";
 import { redirect } from "next/navigation";
+import { ProjectIdSettingsClient } from "./client";
 
 interface ProjectIdSettingsPageProps {
   params: {
@@ -16,16 +17,7 @@ const ProjectIdSettingsPage = async ({
 
   if (!user) redirect("/sign-in");
 
-  const initialValues = await getProject({ projectId: params.projectId });
-  if (!initialValues) {
-    redirect(`/`);
-  }
-
-  return (
-    <div className="w-full lg:max-w-xl mx-auto">
-      <EditProjectForm initialValues={initialValues} />
-    </div>
-  );
+  return <ProjectIdSettingsClient />;
 };
 
 export default ProjectIdSettingsPage;
